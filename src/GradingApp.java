@@ -16,7 +16,10 @@ public class GradingApp {
 
 			
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		/* Accepts 4 test and 4 assignment scores 
+		 *  for ten students from the user and 
+		 *  puts them into two arrays.
+		 */ 
 		int max;
 		int[] studentnumber = new int[10];	
 		studentnumber[0] = 1;
@@ -31,9 +34,9 @@ public class GradingApp {
 		studentnumber[9] = 10;
 		for (int i = 0; i < 10; i++) {
 			do {
-		System.out.println("Please enter student " + studentnumber[i] + "'s" + " exam grades (separated by spaces):");
+		System.out.println("Please enter student " + studentnumber[i] + "'s" + " 4 exam scores (separated by spaces):");
         str = input.nextLine();
-        string = str.split("[ ]+", 4);
+        string = str.split("[ ,]+", 4);
         	for(int j=0; j<4; j++) {
         		examarr[j] = Integer.parseInt(string[j]);
         			}
@@ -45,7 +48,7 @@ public class GradingApp {
         		}
 			   while (max>MAXEXAM); 
 			do {
-				System.out.println("Please enter student " + studentnumber[i] + "'s" + " assgnment grades (separated by spaces):");
+				System.out.println("Please enter student " + studentnumber[i] + "'s" + " 4 assignment scores (separated by spaces):");
 		        str = input.nextLine();
 		        string = str.split("[ ]+", 4);
 		        	for(int j=0; j<4; j++) {
@@ -65,36 +68,34 @@ public class GradingApp {
         	assgngradeSum[0] = assgnarr[0] + assgnarr[1] + assgnarr[2] + assgnarr[3];
         	gradeSum[i] = assgngradeSum[0] + examgradeSum[0]; 
         	
-         } for (int i = 0; i < 10; i++) {
-        	 System.out.print(gradeSum[i]);
-         }
-		
+		}
 		 finalGrade(gradeSum);
-		 
 		 adjustGrade(gradeSum);
+		
 		 
+		
 		 for (int i = 0; i < 10; i++) {
 		    System.out.println("The final grade for student " + studentnumber[i] + " is: " + lettrGrade[i]);
 		    
-		    }
+		    };
 		 for (int i = 0; i < 10; i++) {
 			 System.out.println("The adjusted final grade for student " + studentnumber[i] + " is: " + AdjLtrGrade[i]);
 		 	}
+ }
 		 
-	}
+	
 	public static void finalGrade(int[] args) {
-		// Inserts final letter grade into array based on score sum.
+		// Assigns final letter grade based on score sums.
 		for (int i = 0; i < 10; i++)
 	    {
 		if (gradeSum[i] >=450) {lettrGrade[i] = 'A';}
-		
-		if (gradeSum[i] >=400) {lettrGrade[i] = 'B';}
-		
-		if (gradeSum[i] >=350) {lettrGrade[i] = 'C';}
-		
-		if (gradeSum[i] >=300) {lettrGrade[i] = 'D';}
-		
-			else {lettrGrade[i] = 'F';
+		else
+			if (gradeSum[i] >=400 && gradeSum[i] < 450) {lettrGrade[i] = 'B';}
+			else
+				if (gradeSum[i] >=350 && gradeSum[i] < 400) {lettrGrade[i] = 'C';}
+				else
+					if (gradeSum[i] >=300 && gradeSum[i] < 350) {lettrGrade[i] = 'D';}
+					else {lettrGrade[i] = 'F';
 		}
 		
 	    }
@@ -104,6 +105,11 @@ public class GradingApp {
 
 
 	public static void adjustGrade(int[] args) {
+		/* Assigns adjusted letter grade 
+		 * based on score sum statistics 
+		* and prints the ranges for the 
+		* adjusted grades
+		*/
 		double avg = 0;
 		float sd = 0;
 		int sum = 0;
@@ -123,15 +129,21 @@ public class GradingApp {
 	for (int i = 0; i < 10; i++)
     {
 	if (gradeSum[i]>= avg + (2*sd)) {AdjLtrGrade[i] = 'A';}
-	
-	if (gradeSum[i]>= avg + (1*sd) && gradeSum[i]< avg + (2*sd)) {AdjLtrGrade[i] = 'B';}
-	
-	if (gradeSum[i]>= avg && gradeSum[i] < avg + (1*sd))  {AdjLtrGrade[i] = 'C';}
-	
-	if (gradeSum[i]>= avg - (1*sd) && gradeSum[i] < avg) {AdjLtrGrade[i] = 'D';}
-	
-	if (gradeSum[i]< avg - (2*sd)) {AdjLtrGrade[i] = 'F';}
+	else
+		if (gradeSum[i]>= avg + (1*sd) && gradeSum[i]< avg + (2*sd)) {AdjLtrGrade[i] = 'B';}
+		else
+			if (gradeSum[i]>= avg && gradeSum[i] < avg + (1*sd))  {AdjLtrGrade[i] = 'C';}
+			else
+				if (gradeSum[i]>= avg - (2*sd) && gradeSum[i] < avg) {AdjLtrGrade[i] = 'D';}
+				else
+					if (gradeSum[i]< avg - (2*sd)) {AdjLtrGrade[i] = 'F';}
 	}
+	System.out.println("Ranges for adjusted scores:");
+	System.out.println("A: >= " + (avg + (2*sd)));
+	System.out.println("B: >= " + (avg + (1*sd)));
+	System.out.println("C: >= " + (avg));
+	System.out.println("D: >= " + (avg - (2*sd)));
+	System.out.println("F: < " +  (avg - (2*sd)));
 }
 }
 
