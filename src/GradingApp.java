@@ -1,9 +1,128 @@
-
+import java.util.*;
+import java.lang.Math;
 public class GradingApp {
+	static int examarr[] = new int[4];
+	static int assgnarr[] = new int[4];
+	static int examgradeSum[] = new int [1];
+	static int assgngradeSum[] =new int [1];
+	static int gradeSum[] = new int [10];
+	static char lettrGrade[] = new char [10];
+	static char AdjLtrGrade[] = new char [10];
+	static Scanner input = new Scanner(System.in);
+	final static int MAXEXAM = 50;
+	final static int MAXASSGN = 75;
+	static String str;
+	static String[] string;
 
+			
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		int max;
+		int[] studentnumber = new int[10];	
+		studentnumber[0] = 1;
+		studentnumber[1] = 2;
+		studentnumber[2] = 3;
+		studentnumber[3] = 4;
+		studentnumber[4] = 5;
+		studentnumber[5] = 6;
+		studentnumber[6] = 7;
+		studentnumber[7] = 8;
+		studentnumber[8] = 9;
+		studentnumber[9] = 10;
+		for (int i = 0; i < 10; i++) {
+			do {
+		System.out.println("Please enter student " + studentnumber[i] + "'s" + " exam grades (separated by spaces):");
+        str = input.nextLine();
+        string = str.split("[ ]+", 4);
+        	for(int j=0; j<4; j++) {
+        		examarr[j] = Integer.parseInt(string[j]);
+        			}
+        		Arrays.sort(examarr);
+        		max=examarr[examarr.length-1];
+        		System.out.println(max);
+        			if(max>50);
+        			{
+        				System.out.println("Entry error. Maximum exam score is 50.");
+        			}
+        		}
+			   while (max>50); 
+        		
+        	System.out.println("Please enter student " + studentnumber[i] + "'s" + " assignment grades(separated by spaces):");
+            str = input.nextLine();
+            string = str.split("[ ]+", 4);
+        	for(int j=0; j<4; j++) {
+        		assgnarr[j] = Integer.parseInt(string[j]);
+        		}
+        	
+        	examgradeSum[0] = examarr[0] + examarr[1] + examarr[2] + examarr[3];
+        	assgngradeSum[0] = assgnarr[0] + assgnarr[1] + assgnarr[2] + assgnarr[3];
+        	gradeSum[i] = assgngradeSum[0] + examgradeSum[0]; 
+        	System.out.println(gradeSum[i]);
+         } 
+		
+		 finalGrade(gradeSum);
+		 
+		 adjustGrade(gradeSum);
+		 
+		 for (int i = 0; i < 10; i++) {
+		    System.out.println("The final grade for student" + studentnumber[i] + "is:" + lettrGrade[i]);
+		    
+		    }
+		 for (int i = 0; i < 10; i++) {
+			 System.out.println("The adjusted final grade for student" + studentnumber[i] + "is:" + AdjLtrGrade[i]);
+		 	}
+		 
 	}
+	public static void finalGrade(int[] args) {
+		// Inserts final letter grade into array based on score sum.
+		for (int i = 0; i < 10; i++)
+	    {
+		if (gradeSum[i]>=450) {lettrGrade[i] = 'A';
+		}
+		if (gradeSum[i]>=400) {lettrGrade[i] = 'B';
+		}
+		if (gradeSum[i]>=350) {lettrGrade[i] = 'C';
+		}
+		if (gradeSum[i]>=300) {lettrGrade[i] = 'D';
+		}
+		else {lettrGrade[i] = 'F';}
+		
+	    }
+		
+	}
+	
 
+
+	public static void adjustGrade(int[] args) {
+		double avg = 0;
+		float sd = 0;
+		int sum = 0;
+		for(int i=0; i<gradeSum.length; i++)
+        {
+            sum += gradeSum[i];
+        }
+		
+		avg = sum / gradeSum.length;
+		for (int i = 0; i < gradeSum.length; i++)
+		{
+		sd += Math.pow(gradeSum[i] - avg, 2) / gradeSum.length;
+		}
+		sd = (float) Math.sqrt(sd);
+		
+		
+	for (int i = 0; i < 10; i++)
+    {
+	if (gradeSum[i]>= avg + (2*sd)) {AdjLtrGrade[i] = 'A';
+	}
+	if (gradeSum[i]>= avg + (1*sd) && gradeSum[i]< avg + (2*sd)) {AdjLtrGrade[i] = 'B';
+	}
+	if (gradeSum[i]>= avg && gradeSum[i] < avg + (1*sd))  {AdjLtrGrade[i] = 'C';
+	}
+	if (gradeSum[i]>= avg - (1*sd) && gradeSum[i] < avg) {AdjLtrGrade[i] = 'D';
+	}
+	if (gradeSum[i]< avg - (2*sd)) {AdjLtrGrade[i] = 'F';
+    }
+	}
 }
+}
+
